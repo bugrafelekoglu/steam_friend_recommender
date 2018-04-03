@@ -91,36 +91,36 @@ public class Steam {
 		try {
 			Object obj = parser.parse(new FileReader("steam_user.json"));
 
-            JSONObject jsonObject = (JSONObject) obj;
+            		JSONObject jsonObject = (JSONObject) obj;
             	
-            JSONObject response = (JSONObject) jsonObject.get("response");
+            		JSONObject response = (JSONObject) jsonObject.get("response");
 
-            // if a profile is private
-            if(response.size() == 0)
-            	return;
+            		// if a profile is private
+            		if(response.size() == 0)
+            			return;
            
-            Long gameCount = (Long) response.get("game_count");
+            		Long gameCount = (Long) response.get("game_count");
             
-            // if a profile has not any game
-            if(gameCount == 0)
-            	return;
+            		// if a profile has not any game
+            		if(gameCount == 0)
+            			return;
             
-            // Loop games array
-            JSONArray games = (JSONArray) response.get("games");
-            Iterator<JSONObject> iterator = games.iterator();
-            while (iterator.hasNext()) {
-            	JSONObject game = iterator.next();
-                Long appid = (Long) game.get("appid");
-                Long playtime = (Long) game.get("playtime_forever");
-                if(playtime != 0)
-                	gamesPlayed.add(new Game(toIntExact(appid), toIntExact(playtime)));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+            		// Loop games array
+            		JSONArray games = (JSONArray) response.get("games");
+            		Iterator<JSONObject> iterator = games.iterator();
+            		while (iterator.hasNext()) {
+            			JSONObject game = iterator.next();
+                		Long appid = (Long) game.get("appid");
+                		Long playtime = (Long) game.get("playtime_forever");
+                		if(playtime != 0)
+                			gamesPlayed.add(new Game(toIntExact(appid), toIntExact(playtime)));
+            		}
+        	} catch (FileNotFoundException e) {
+            		e.printStackTrace();
+        	} catch (IOException e) {
+            		e.printStackTrace();
+        	} catch (ParseException e) {
+            		e.printStackTrace();
 		}		
 	}
 }
